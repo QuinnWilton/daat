@@ -1,18 +1,38 @@
 defmodule Tiferet do
-  @moduledoc """
-  Documentation for `Tiferet`.
-  """
+  defmacro defpmodule(name, dependencies, do: body) do
+    quote do
+      defmodule unquote(name) do
+        @dependencies unquote(dependencies)
 
-  @doc """
-  Hello world.
+        def __dependencies__ do
+          @dependencies
+        end
 
-  ## Examples
+        defmacro __using__(_opts) do
+          quote bind_quoted: [body: unquote(Macro.escape(body))] do
+            body
+          end
+        end
+      end
+    end
+  end
 
-      iex> Tiferet.hello()
-      :world
+  defmacro definst(pmodule, name, dependencies) do
+    dependency_reference =
+      quote unquote: false do
+        unquote(dependency)
+      end
 
-  """
-  def hello do
-    :world
+    quote do
+      defmodule unquote(name) do
+        use unquote(pmodule)
+
+        for dependency <- unquote(pmodule).__dependencies__ do
+          def unquote(dependency_reference)() do
+            Keyword.fetch!(unquote(dependencies), unquote(dependency_reference))
+          end
+        end
+      end
+    end
   end
 end

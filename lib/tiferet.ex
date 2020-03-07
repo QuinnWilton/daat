@@ -24,10 +24,19 @@ defmodule Tiferet do
       end
 
     quote do
+      for {k, v} <- unquote(dependencies) do
+        case Keyword.fetch!(unquote(pmodule).__dependencies__, k) do
+          n when is_function(v, n) ->
+            :ok
+          mod when is_atom(mod) and is_atom(v) ->
+            :ok
+        end
+      end
+
       defmodule unquote(name) do
         use unquote(pmodule)
 
-        for dependency <- unquote(pmodule).__dependencies__ do
+        for {dependency, _value} <- unquote(pmodule).__dependencies__ do
           def unquote(dependency_reference)() do
             Keyword.fetch!(unquote(dependencies), unquote(dependency_reference))
           end

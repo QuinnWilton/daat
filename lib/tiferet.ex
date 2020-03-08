@@ -1,4 +1,6 @@
 defmodule Tiferet do
+  alias Tiferet.InvalidDependencyError
+
   defmacro defpmodule(name, dependencies, do: body) do
     quote do
       defmodule unquote(name) do
@@ -15,11 +17,15 @@ defmodule Tiferet do
     end
   end
 
-  defmacro definst(pmodule, name, dependencies) do
+  defmacro definst(pmodule, instance, dependencies) do
     quote do
-      validate_dependencies(unquote(dependencies), unquote(pmodule))
+      validate_dependencies(
+        unquote(dependencies),
+        unquote(pmodule),
+        unquote(instance)
+      )
 
-      defmodule unquote(name) do
+      defmodule unquote(instance) do
         use unquote(pmodule)
 
         inject_dependencies(unquote(dependencies), unquote(pmodule))
@@ -27,13 +33,21 @@ defmodule Tiferet do
     end
   end
 
-  def validate_dependencies(dependencies, pmodule) do
-    for {k, v} <- dependencies do
-      case Keyword.fetch!(pmodule.__dependencies__, k) do
-        n when is_function(v, n) ->
-          :ok
-        mod when is_atom(mod) and is_atom(v) ->
-          :ok
+  def validate_dependencies(dependencies, pmodule, instance) do
+    for {dep_name, dep_value} <- dependencies do
+      declaration = Keyword.fetch!(pmodule.__dependencies__, dep_name)
+
+      valid =
+        cond do
+          is_integer(declaration) ->
+            is_function(dep_value, declaration)
+
+          is_atom(declaration) ->
+            is_atom(dep_value)
+        end
+
+      if not valid do
+        raise InvalidDependencyError.new(pmodule, instance, dep_name)
       end
     end
   end

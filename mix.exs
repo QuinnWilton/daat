@@ -1,9 +1,9 @@
-defmodule Tiferet.MixProject do
+defmodule Daat.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :tiferet,
+      app: :daat,
       version: "0.1.0",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,

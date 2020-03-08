@@ -1,9 +1,9 @@
-defmodule TiferetTest do
+defmodule DaatTest do
   use ExUnit.Case
 
-  import Tiferet
+  import Daat
 
-  alias Tiferet.InvalidDependencyError
+  alias Daat.InvalidDependencyError
 
   defmodule Encoder do
     @callback encode!(term) :: binary

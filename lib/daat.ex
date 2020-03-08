@@ -1,5 +1,5 @@
-defmodule Tiferet do
-  alias Tiferet.InvalidDependencyError
+defmodule Daat do
+  alias Daat.InvalidDependencyError
 
   defmacro defpmodule(name, dependencies, do: body) do
     quote do

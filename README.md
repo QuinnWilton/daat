@@ -1,21 +1,21 @@
-# Tiferet
+# Daat
 
 **TODO: Add description**
 
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `tiferet` to your list of dependencies in `mix.exs`:
+by adding `daat` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:tiferet, "~> 0.1.0"}
+    {:daat, "~> 0.1.0"}
   ]
 end
 ```
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/tiferet](https://hexdocs.pm/tiferet).
+be found at [https://hexdocs.pm/daat](https://hexdocs.pm/daat).
 

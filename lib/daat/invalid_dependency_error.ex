@@ -1,4 +1,4 @@
-defmodule Tiferet.InvalidDependencyError do
+defmodule Daat.InvalidDependencyError do
   alias __MODULE__
 
   @type t :: %InvalidDependencyError{

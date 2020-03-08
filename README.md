@@ -90,3 +90,7 @@ follower = %{name: "Chris", email: "chris@example.com"}
 
 MockUserService.follow(user, follower)
 ```
+
+## Acknowledgements
+
+This library was inspired by [a talk given by @expede](https://codesync.global/speaker/brooklyn-zelenka/#623old-ideas-made-new) at Code BEAM SF 2020

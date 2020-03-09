@@ -22,9 +22,12 @@ end
 
 Examples can be found in the [test](https://github.com/quinnwilton/daat/blob/master/test/examples) directory
 
+- [Data Structural Bootstrapping](https://github.com/QuinnWilton/daat/blob/master/test/examples/queue_test.exs)
+- [Polymorphic Intervals](https://github.com/QuinnWilton/daat/blob/master/test/examples/interval_test.exs)
+
 ## Motivation
 
-Imagine that you have a module named `UserService`, that exposes a function named `follow/2`. When called, the system sends an email to the user being followed. It would be nice if we could extract actually sending the email from this module, so that we aren't coupling ourselves to a specific email client, and so that can inject mocks into the service for testing purposes.
+Imagine that you have a module named `UserService`, that exposes a function named `follow/2`. When called, the system sends an email to the user being followed. It would be nice if we could extract actually sending the email from this module, so that we aren't coupling ourselves to a specific email client, and so that we can inject mocks into the service for testing purposes.
 
 Typically, Elixir programmers might do this in one of two ways:
 

@@ -144,7 +144,7 @@ defmodule Daat.Examples.QueueTest do
         tuple({constant(:enqueue), term()})
       ])
 
-    check all(commands <- list_of(command, min_length: 10)) do
+    check all(commands <- list_of(command, min_length: 5)) do
       q1 = ListQueue.empty()
       q2 = ChurchQueue.empty()
 

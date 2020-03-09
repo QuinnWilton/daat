@@ -140,7 +140,6 @@ defmodule Daat.Examples.QueueTest do
   property "ListQueue and ChurchQueue behave identically" do
     command =
       one_of([
-        constant(:empty?),
         constant(:dequeue),
         tuple({constant(:enqueue), term()})
       ])
@@ -151,24 +150,25 @@ defmodule Daat.Examples.QueueTest do
 
       Enum.reduce(commands, {q1, q2}, fn command, {q1, q2} ->
         case command do
-          :empty? ->
-            assert ListQueue.empty?(q1) == ChurchQueue.empty?(q2)
-
-            {q1, q2}
-
           {:enqueue, x} ->
             q1 = ListQueue.enqueue(q1, x)
             q2 = ChurchQueue.enqueue(q2, x)
+
+            assert ListQueue.empty?(q1) == ChurchQueue.empty?(q2)
 
             {q1, q2}
 
           :dequeue ->
             case {ListQueue.dequeue(q1), ChurchQueue.dequeue(q2)} do
               {:empty, :empty} ->
+                assert ListQueue.empty?(q1)
+                assert ChurchQueue.empty?(q2)
+
                 {q1, q2}
 
               {{x1, q1}, {x2, q2}} ->
                 assert x1 == x2
+                assert ListQueue.empty?(q1) == ChurchQueue.empty?(q2)
 
                 {q1, q2}
             end

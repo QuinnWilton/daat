@@ -78,6 +78,10 @@ defmodule DaatTest do
       def call(a), do: a
     end
 
+    defmodule Validation.ModuleDependency.Behaviour.Wrong do
+      def foo(), do: 5
+    end
+
     defpmodule Validation.ModuleDependency, dep: Validation.ModuleDependency.Behaviour do
       def call(a) do
         dep().call(a)
@@ -87,6 +91,12 @@ defmodule DaatTest do
     assert_raise(InvalidDependencyError, fn ->
       definst(Validation.ModuleDependency, Validation.ModuleDependency.WrongType,
         dep: fn a -> a end
+      )
+    end)
+
+    assert_raise(InvalidDependencyError, fn ->
+      definst(Validation.ModuleDependency, Validation.ModuleDependency.WrongBehaviour,
+        dep: Validation.ModuleDependency.Behaviour.Wrong
       )
     end)
 

@@ -3,15 +3,23 @@ defmodule Daat.Dependency do
 
   def validate(dependencies, pmodule, instance) do
     for {dep_name, dep_value} <- dependencies do
-      declaration = Keyword.fetch!(pmodule.__dependencies__, dep_name)
+      decl = Keyword.fetch!(pmodule.__dependencies__, dep_name)
 
       valid =
         cond do
-          is_integer(declaration) ->
-            is_function(dep_value, declaration)
+          is_integer(decl) ->
+            is_function(dep_value, decl)
 
-          is_atom(declaration) ->
-            is_atom(dep_value)
+          is_atom(decl) ->
+            cond do
+              function_exported?(decl, :behaviour_info, 1) and is_atom(dep_value) ->
+                Enum.all?(decl.behaviour_info(:callbacks), fn fun ->
+                  fun in dep_value.__info__(:functions)
+                end)
+
+              :else ->
+                is_atom(dep_value)
+            end
         end
 
       if not valid do

@@ -64,7 +64,7 @@ follower = %{name: "Chris", email: "chris@example.com"}
 MockUserService.follow(user, follower)
 ```
 
-You're also able to specify that a dependency should be a module. My end-goal is to validate that the passed modules conform to a behaviour described by the declaration, but right now I am only validating that you did in fact pass a module.
+You're also able to specify that a dependency should be a module. If that module defines a behaviour, then the dependency will be validated as implementating that behaviour.
 
 ```elixir
 import Daat

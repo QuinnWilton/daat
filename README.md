@@ -1,6 +1,5 @@
 # Daat
-
-[![API Docs](https://img.shields.io/badge/api-docs-yellow.svg?style=flat)](http://hexdocs.pm/daat/)
+[![hex.pm version](https://img.shields.io/hexpm/v/daat.svg?style=flat)](https://hex.pm/packages/daat) [![API Docs](https://img.shields.io/badge/api-docs-yellow.svg?style=flat)](http://hexdocs.pm/daat/) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/quinnwilton/daat/blob/master/LICENSE)
 
 > Daʻat is not always depicted in representations of the sefirot; and could be abstractly considered an "empty slot" into which the germ of any other sefirot can be placed.
 > — [Wikipedia](https://en.wikipedia.org/wiki/Da%27at)

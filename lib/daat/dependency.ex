@@ -11,10 +11,14 @@ defmodule Daat.Dependency do
             is_function(dep_value, decl)
 
           is_atom(decl) ->
+            Code.ensure_loaded(decl)
+
             cond do
               function_exported?(decl, :behaviour_info, 1) and is_atom(dep_value) ->
-                Enum.all?(decl.behaviour_info(:callbacks), fn fun ->
-                  fun in dep_value.__info__(:functions)
+                Code.ensure_loaded(dep_value)
+
+                Enum.all?(decl.behaviour_info(:callbacks), fn {fun, arity} ->
+                  function_exported?(dep_value, fun, arity)
                 end)
 
               :else ->

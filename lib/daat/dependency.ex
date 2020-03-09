@@ -28,7 +28,7 @@ defmodule Daat.Dependency do
 
     quote do
       for {dependency, _value} <- unquote(pmodule).__dependencies__() do
-        def unquote(dependency_reference)() do
+        defp unquote(dependency_reference)() do
           Keyword.fetch!(unquote(dependencies), unquote(dependency_reference))
         end
       end

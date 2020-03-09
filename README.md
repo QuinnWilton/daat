@@ -18,7 +18,11 @@ def deps do
 end
 ```
 
-## Example + Motivation
+## Examples
+
+Examples can be found in the [test](https://github.com/quinnwilton/daat/blob/master/test/examples) directory
+
+## Motivation
 
 Imagine that you have a module named `UserService`, that exposes a function named `follow/2`. When called, the system sends an email to the user being followed. It would be nice if we could extract actually sending the email from this module, so that we aren't coupling ourselves to a specific email client, and so that can inject mocks into the service for testing purposes.
 

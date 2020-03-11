@@ -13,7 +13,7 @@ This library is mostly untested, and should be used at your risk.
 ```elixir
 def deps do
   [
-    {:daat, "~> 0.1.0"}
+    {:daat, "~> 0.2.0"}
   ]
 end
 ```
